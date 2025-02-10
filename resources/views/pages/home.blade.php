@@ -48,7 +48,7 @@
                                                     <i class="bi bi-x-circle text-danger fs-5"></i>
                                                 </button>
                                             </form>
-                                        </div>
+                                        </div> 
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text text-truncate">
@@ -60,7 +60,7 @@
                                             <form action="{{ route('tasks.complete', $task->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-sm btn-primary w-100">
+                                                <button type="submit" class="btn btn-sm btn-danger w-100">
                                                     <span class="d-flex align-items-center justify-content-center">
                                                         <i class="bi bi-check fs-5"></i>
                                                         Selesai
@@ -73,7 +73,7 @@
                                 </div>
                             @endif
                         @endforeach
-                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
                             data-bs-target="#addTaskModal" data-list="{{ $list->id }}">
                             <span class="d-flex align-items-center justify-content-center">
                                 <i class="bi bi-plus fs-5"></i>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
             @endforeach
-            <button type="button" class="btn btn-outline-primary flex-shrink-0" style="width: 18rem; height: fit-content;"
+            <button type="button" class="btn btn-outline-danger flex-shrink-0" style="width: 18rem; height: fit-content;"
                 data-bs-toggle="modal" data-bs-target="#addListModal">
                 <span class="d-flex align-items-center justify-content-center">
                     <i class="bi bi-plus fs-5"></i>

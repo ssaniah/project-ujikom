@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-primary navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg bg-danger navbar-dark fixed-top">
     <div class="container d-flex justify-content-between">
         <!-- Nama Aplikasi -->
         <a class="navbar-brand fw-bolder" href="#">{{ config('app.name') }}</a>
