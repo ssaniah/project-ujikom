@@ -2,19 +2,31 @@
 
 @section('content')
     <div id="content" class="overflow-y-hidden overflow-x-hidden">
+        <div class="row mb-3">
+            <div class="col-6 mx-auto">
+                <form action="{{ route('tasks.index') }}" method="GET" class="d-flex gap-2">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                        placeholder="Cari tugas atau list...">
+                    <button type="submit" class="btn btn-info">
+                        Cari
+                    </button>
+                </form>
+            </div>
+        </div>
+
         @if ($lists->count() == 0)
             <div class="d-flex flex-column align-items-center">
                 <p class="fw-bold text-center">Belum ada tugas yang ditambahkan</p>
-                <button type="button" class="btn btn-sm d-flex align-items-center gap-2 btn-outline-primary"
-                    style="width: fit-content;">
+                <button type="button" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2"
+                    style="width: fit-content;" data-bs-toggle="modal" data-bs-target="#addListModal">
                     <i class="bi bi-plus-square fs-3"></i> Tambah
                 </button>
             </div>
         @endif
         <div class="d-flex gap-3 px-3 flex-nowrap overflow-x-scroll overflow-y-hidden" style="height: 100vh;">
             @foreach ($lists as $list)
-                <div class="card flex-shrink-0" style="width: 18rem; max-height: 80vh;">
-                    <div class="card-header d-flex align-items-center justify-content-between">
+                <div class="card flex-shrink-0 bg-info-subtle" style="width: 18rem; max-height: 80vh;">
+                    <div class="card-header d-flex align-items-center justify-content-between bg-info">
                         <h4 class="card-title">{{ $list->name }}</h4>
                         <form action="{{ route('lists.destroy', $list->id) }}" method="POST" style="display: inline;">
                             @csrf
@@ -31,7 +43,7 @@
                                     <div class="card-header">
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div class="d-flex flex-column justify-content-center gap-2">
-                                                <a href="{{ route('tasks.show', $task->id) }}"  
+                                                <a href="{{ route('tasks.show', $task->id) }}"
                                                     class="fw-bold lh-1 m-0 {{ $task->is_completed ? 'text-decoration-line-through' : '' }}">
                                                     {{ $task->name }}
                                                 </a>
@@ -48,7 +60,7 @@
                                                     <i class="bi bi-x-circle text-danger fs-5"></i>
                                                 </button>
                                             </form>
-                                        </div> 
+                                        </div>
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text text-truncate">
@@ -60,7 +72,7 @@
                                             <form action="{{ route('tasks.complete', $task->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button type="submit" class="btn btn-sm btn-danger w-100">
+                                                <button type="submit" class="btn btn-sm bg-info w-100">
                                                     <span class="d-flex align-items-center justify-content-center">
                                                         <i class="bi bi-check fs-5"></i>
                                                         Selesai
@@ -73,7 +85,7 @@
                                 </div>
                             @endif
                         @endforeach
-                        <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-sm bg-info" data-bs-toggle="modal"
                             data-bs-target="#addTaskModal" data-list="{{ $list->id }}">
                             <span class="d-flex align-items-center justify-content-center">
                                 <i class="bi bi-plus fs-5"></i>
@@ -86,13 +98,15 @@
                     </div>
                 </div>
             @endforeach
-            <button type="button" class="btn btn-outline-danger flex-shrink-0" style="width: 18rem; height: fit-content;"
-                data-bs-toggle="modal" data-bs-target="#addListModal">
-                <span class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-plus fs-5"></i>
-                    Tambah
-                </span>
-            </button>
+            @if ($lists->count() != 0)
+                <button type="button" class="btn bg-info flex-shrink-0" style="width: 18rem; height: fit-content;"
+                    data-bs-toggle="modal" data-bs-target="#addListModal">
+                    <span class="d-flex align-items-center justify-content-center">
+                        <i class="bi bi-plus fs-5"></i>
+                        Tambah
+                    </span>
+                </button>
+            @endif
         </div>
     </div>
 @endsection

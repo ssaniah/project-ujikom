@@ -22,7 +22,8 @@
     </div>
 </div>
 
-<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+<div class="modal fade" id="addTaskModal" tabindex="-1"
+ aria-labelledby="addTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="{{ route('tasks.store') }}" method="POST" class="modal-content">
             @method('POST')
@@ -38,10 +39,23 @@
                     <input type="text" class="form-control" id="name" name="name"
                         placeholder="Masukkan nama list">
                 </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Deskripsi</label>
+                    <input type="text" class="form-control" id="description" name="description"
+                        placeholder="Masukan Deskripsi">
+                </div>
+                <div class="mb-4">
+                    <label for="color" class="form-label">Priority</label>
+                    <select class="form-select" aria-label="priority" id="priority" name="priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-danger">Tambah</button>
+                <button type="submit" class="btn btn-danger ">Tambah</button>
             </div>
         </form>
     </div>
