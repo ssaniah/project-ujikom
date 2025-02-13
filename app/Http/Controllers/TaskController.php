@@ -95,23 +95,54 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->delete();
 
-        return redirect()->back()->with('success', 'Task successfully deleted.');
+        return redirect()->route('home');
     }
 //     Mengambil task berdasarkan ID.
 // Menghapus task menggunakan metode delete().
 // Redirect ke halaman sebelumnya dengan pesan sukses (Task successfully deleted.).
 // Menampilkan formulir edit untuk tugas tertentu
 public function show($id)
- {
-    $task = Task:: findOrFail($id);
+    {
+        $data = [
+            'title' => 'Task',
+            'lists' => TaskList::all(),
+            'task' => Task::findOrFail($id),
+        ];
 
-    $data = [
-        'title' => 'Details',
-        'task' => $task,
-    ];
+        return view('pages.details', $data);
+    }
 
-    return view('pages.details',$data);
- }
+    public function changeList(Request $request, Task $task)
+    {
+        $request->validate([
+            'list_id' => 'required|exists:task_lists,id',
+        ]);
+
+        Task::findOrFail($task->id)->update([
+            'list_id' => $request->list_id
+        ]);
+
+        return redirect()->back()->with('success', 'List berhasil diperbarui!');
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        $request->validate([
+            'list_id' => 'required',
+            'name' => 'required|max:100',
+            'description' => 'max:255',
+            'priority' => 'required|in:low,medium,high'
+        ]);
+
+        Task::findOrFail($task->id)->update([
+            'list_id' => $request->list_id,
+            'name' => $request->name,
+            'description' => $request->description,
+            'priority' => $request->priority
+        ]);
+
+        return redirect()->back()->with('success', 'Task berhasil diperbarui!');
+    }
 }
 // Mengambil task berdasarkan id, atau menampilkan error 404 jika tidak ditemukan.
 // Mengirimkan data task ke view pages.details dengan judul halaman Details.

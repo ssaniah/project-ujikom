@@ -15,3 +15,7 @@ Route::resource('tasks', TaskController::class); // Membuat route CRUD untuk Tas
 
 // Menetapkan route untuk menandai task sebagai selesai
 Route::patch('/tasks/{task}/complete', [TaskController::class, 'complete'])->name('tasks.complete'); // Menetapkan route untuk menyelesaikan task, yang memanggil metode 'complete' dari TaskController
+
+Route::patch('/tasks/{task}/change-list', [TaskController::class, 'changeList']) 
+// Route PATCH untuk mengubah daftar tugas dengan parameter {task}, yang mengarah ke method changeList di TaskController
+    ->name('tasks.changeList'); // Menamai route sebagai 'tasks.changeList' untuk referensi di aplikasi
